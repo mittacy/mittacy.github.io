@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <meta name="description" content="醉后不知天在水, 满船清梦压星河">
+    <link rel="icon" href="/favicon.ico">
+    <title>protobuf</title>
+  <link rel="preload" href="/blog/static/js/chunk-vendors.98aa2d5e.js" as="script"><link rel="preload" href="/blog/static/css/app.2a02c875.css" as="style"><link rel="preload" href="/blog/static/js/app.0d2651de.js" as="script"><link rel="preload" href="/blog/static/css/chunk-4b00a56a.e2e22ac3.css" as="style"><link rel="preload" href="/blog/static/js/chunk-4b00a56a.f60616c1.js" as="script"><link rel="preload" href="/blog/static/css/chunk-d54686c8.30e0cc7d.css" as="style"><link rel="preload" href="/blog/static/js/chunk-d54686c8.5143f685.js" as="script"><link rel="prefetch" href="/blog/static/css/chunk-2e3fbe22.a53d4fc3.css"><link rel="prefetch" href="/blog/static/css/chunk-3a5a13a3.2a512b60.css"><link rel="prefetch" href="/blog/static/css/chunk-52bf6e4f.2a374e40.css"><link rel="prefetch" href="/blog/static/css/chunk-b31288f6.c0879475.css"><link rel="prefetch" href="/blog/static/js/chunk-2e3fbe22.ff12df6f.js"><link rel="prefetch" href="/blog/static/js/chunk-3a5a13a3.0cebf565.js"><link rel="prefetch" href="/blog/static/js/chunk-52bf6e4f.1a087b42.js"><link rel="prefetch" href="/blog/static/js/chunk-b31288f6.bfb70cd4.js"><link rel="stylesheet" href="/blog/static/css/app.2a02c875.css"><link rel="stylesheet" href="/blog/static/css/chunk-4b00a56a.e2e22ac3.css"><link rel="stylesheet" href="/blog/static/css/chunk-d54686c8.30e0cc7d.css"><style data-vue-ssr-id="7a22e877:0">.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+html body {
+  margin: 0;
+  color: #333;
+  background-color: #f8f8f8;
+}
+a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s;
+}
+a:hover {
+  color: #ef4b50;
+}
+p {
+  margin: 0;
+}
+.markdown-body img {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-shadow: 1px 1px 25px #c0c0c0;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style><style data-vue-ssr-id="015e92e1:0">/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection, code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #9a6e3a;
+	/* This background color was intended by the author of this theme. */
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function,
+.token.class-name {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style><style data-vue-ssr-id="138fb736:0">.markdown-body .octicon {
+  display: inline-block;
+  fill: currentColor;
+  vertical-align: text-bottom;
+}
+
+.markdown-body .anchor {
+  float: left;
+  line-height: 1;
+  margin-left: -20px;
+  padding-right: 4px;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body h1 .octicon-link,
+.markdown-body h2 .octicon-link,
+.markdown-body h3 .octicon-link,
+.markdown-body h4 .octicon-link,
+.markdown-body h5 .octicon-link,
+.markdown-body h6 .octicon-link {
+  color: #1b1f23;
+  vertical-align: middle;
+  visibility: hidden;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.markdown-body h1:hover .anchor .octicon-link,
+.markdown-body h2:hover .anchor .octicon-link,
+.markdown-body h3:hover .anchor .octicon-link,
+.markdown-body h4:hover .anchor .octicon-link,
+.markdown-body h5:hover .anchor .octicon-link,
+.markdown-body h6:hover .anchor .octicon-link {
+  visibility: visible;
+}
+
+.markdown-body h1:hover .anchor .octicon-link:before,
+.markdown-body h2:hover .anchor .octicon-link:before,
+.markdown-body h3:hover .anchor .octicon-link:before,
+.markdown-body h4:hover .anchor .octicon-link:before,
+.markdown-body h5:hover .anchor .octicon-link:before,
+.markdown-body h6:hover .anchor .octicon-link:before {
+  width: 16px;
+  height: 16px;
+  content: ' ';
+  display: inline-block;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath fill-rule='evenodd' d='M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z'%3E%3C/path%3E%3C/svg%3E");
+}.markdown-body {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.5;
+  color: #24292e;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.markdown-body details {
+  display: block;
+}
+
+.markdown-body summary {
+  display: list-item;
+}
+
+.markdown-body a {
+  background-color: initial;
+}
+
+.markdown-body a:active,
+.markdown-body a:hover {
+  outline-width: 0;
+}
+
+.markdown-body strong {
+  font-weight: inherit;
+  font-weight: bolder;
+}
+
+.markdown-body h1 {
+  font-size: 2em;
+  margin: .67em 0;
+}
+
+.markdown-body img {
+  border-style: none;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre {
+  font-family: monospace,monospace;
+  font-size: 1em;
+}
+
+.markdown-body hr {
+  box-sizing: initial;
+  height: 0;
+  overflow: visible;
+}
+
+.markdown-body input {
+  font: inherit;
+  margin: 0;
+}
+
+.markdown-body input {
+  overflow: visible;
+}
+
+.markdown-body [type=checkbox] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body * {
+  box-sizing: border-box;
+}
+
+.markdown-body input {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.markdown-body a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body strong {
+  font-weight: 600;
+}
+
+.markdown-body hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #dfe2e5;
+}
+
+.markdown-body hr:after,
+.markdown-body hr:before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr:after {
+  clear: both;
+}
+
+.markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font: 11px SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  line-height: 10px;
+  color: #444d56;
+  vertical-align: middle;
+  background-color: #fafbfc;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #d1d5da;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body h1 {
+  font-size: 32px;
+}
+
+.markdown-body h1,
+.markdown-body h2 {
+  font-weight: 600;
+}
+
+.markdown-body h2 {
+  font-size: 24px;
+}
+
+.markdown-body h3 {
+  font-size: 20px;
+}
+
+.markdown-body h3,
+.markdown-body h4 {
+  font-weight: 600;
+}
+
+.markdown-body h4 {
+  font-size: 16px;
+}
+
+.markdown-body h5 {
+  font-size: 14px;
+}
+
+.markdown-body h5,
+.markdown-body h6 {
+  font-weight: 600;
+}
+
+.markdown-body h6 {
+  font-size: 12px;
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+}
+
+.markdown-body ol,
+.markdown-body ul {
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ol ol ol,
+.markdown-body ol ul ol,
+.markdown-body ul ol ol,
+.markdown-body ul ul ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body code,
+.markdown-body pre {
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body input::-webkit-inner-spin-button,
+.markdown-body input::-webkit-outer-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.markdown-body :checked+.radio-label {
+  position: relative;
+  z-index: 1;
+  border-color: #0366d6;
+}
+
+.markdown-body .border {
+  border: 1px solid #e1e4e8!important;
+}
+
+.markdown-body .border-0 {
+  border: 0!important;
+}
+
+.markdown-body .border-bottom {
+  border-bottom: 1px solid #e1e4e8!important;
+}
+
+.markdown-body .rounded-1 {
+  border-radius: 3px!important;
+}
+
+.markdown-body .bg-white {
+  background-color: #fff!important;
+}
+
+.markdown-body .bg-gray-light {
+  background-color: #fafbfc!important;
+}
+
+.markdown-body .text-gray-light {
+  color: #6a737d!important;
+}
+
+.markdown-body .mb-0 {
+  margin-bottom: 0!important;
+}
+
+.markdown-body .my-2 {
+  margin-top: 8px!important;
+  margin-bottom: 8px!important;
+}
+
+.markdown-body .pl-0 {
+  padding-left: 0!important;
+}
+
+.markdown-body .py-0 {
+  padding-top: 0!important;
+  padding-bottom: 0!important;
+}
+
+.markdown-body .pl-1 {
+  padding-left: 4px!important;
+}
+
+.markdown-body .pl-2 {
+  padding-left: 8px!important;
+}
+
+.markdown-body .py-2 {
+  padding-top: 8px!important;
+  padding-bottom: 8px!important;
+}
+
+.markdown-body .pl-3,
+.markdown-body .px-3 {
+  padding-left: 16px!important;
+}
+
+.markdown-body .px-3 {
+  padding-right: 16px!important;
+}
+
+.markdown-body .pl-4 {
+  padding-left: 24px!important;
+}
+
+.markdown-body .pl-5 {
+  padding-left: 32px!important;
+}
+
+.markdown-body .pl-6 {
+  padding-left: 40px!important;
+}
+
+.markdown-body .f6 {
+  font-size: 12px!important;
+}
+
+.markdown-body .lh-condensed {
+  line-height: 1.25!important;
+}
+
+.markdown-body .text-bold {
+  font-weight: 600!important;
+}
+
+.markdown-body .pl-c {
+  color: #6a737d;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #005cc5;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #6f42c1;
+}
+
+.markdown-body .pl-s .pl-s1,
+.markdown-body .pl-smi {
+  color: #24292e;
+}
+
+.markdown-body .pl-ent {
+  color: #22863a;
+}
+
+.markdown-body .pl-k {
+  color: #d73a49;
+}
+
+.markdown-body .pl-pds,
+.markdown-body .pl-s,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sra,
+.markdown-body .pl-sr .pl-sre {
+  color: #032f62;
+}
+
+.markdown-body .pl-smw,
+.markdown-body .pl-v {
+  color: #e36209;
+}
+
+.markdown-body .pl-bu {
+  color: #b31d28;
+}
+
+.markdown-body .pl-ii {
+  color: #fafbfc;
+  background-color: #b31d28;
+}
+
+.markdown-body .pl-c2 {
+  color: #fafbfc;
+  background-color: #d73a49;
+}
+
+.markdown-body .pl-c2:before {
+  content: "^M";
+}
+
+.markdown-body .pl-sr .pl-cce {
+  font-weight: 700;
+  color: #22863a;
+}
+
+.markdown-body .pl-ml {
+  color: #735c0f;
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  font-weight: 700;
+  color: #005cc5;
+}
+
+.markdown-body .pl-mi {
+  font-style: italic;
+  color: #24292e;
+}
+
+.markdown-body .pl-mb {
+  font-weight: 700;
+  color: #24292e;
+}
+
+.markdown-body .pl-md {
+  color: #b31d28;
+  background-color: #ffeef0;
+}
+
+.markdown-body .pl-mi1 {
+  color: #22863a;
+  background-color: #f0fff4;
+}
+
+.markdown-body .pl-mc {
+  color: #e36209;
+  background-color: #ffebda;
+}
+
+.markdown-body .pl-mi2 {
+  color: #f6f8fa;
+  background-color: #005cc5;
+}
+
+.markdown-body .pl-mdr {
+  font-weight: 700;
+  color: #6f42c1;
+}
+
+.markdown-body .pl-ba {
+  color: #586069;
+}
+
+.markdown-body .pl-sg {
+  color: #959da5;
+}
+
+.markdown-body .pl-corl {
+  text-decoration: underline;
+  color: #032f62;
+}
+
+.markdown-body .mb-0 {
+  margin-bottom: 0!important;
+}
+
+.markdown-body .my-2 {
+  margin-bottom: 8px!important;
+}
+
+.markdown-body .my-2 {
+  margin-top: 8px!important;
+}
+
+.markdown-body .pl-0 {
+  padding-left: 0!important;
+}
+
+.markdown-body .py-0 {
+  padding-top: 0!important;
+  padding-bottom: 0!important;
+}
+
+.markdown-body .pl-1 {
+  padding-left: 4px!important;
+}
+
+.markdown-body .pl-2 {
+  padding-left: 8px!important;
+}
+
+.markdown-body .py-2 {
+  padding-top: 8px!important;
+  padding-bottom: 8px!important;
+}
+
+.markdown-body .pl-3 {
+  padding-left: 16px!important;
+}
+
+.markdown-body .pl-4 {
+  padding-left: 24px!important;
+}
+
+.markdown-body .pl-5 {
+  padding-left: 32px!important;
+}
+
+.markdown-body .pl-6 {
+  padding-left: 40px!important;
+}
+
+.markdown-body .pl-7 {
+  padding-left: 48px!important;
+}
+
+.markdown-body .pl-8 {
+  padding-left: 64px!important;
+}
+
+.markdown-body .pl-9 {
+  padding-left: 80px!important;
+}
+
+.markdown-body .pl-10 {
+  padding-left: 96px!important;
+}
+
+.markdown-body .pl-11 {
+  padding-left: 112px!important;
+}
+
+.markdown-body .pl-12 {
+  padding-left: 128px!important;
+}
+
+.markdown-body hr {
+  border-bottom-color: #eee;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font: 11px SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  line-height: 10px;
+  color: #444d56;
+  vertical-align: middle;
+  background-color: #fafbfc;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #d1d5da;
+}
+
+.markdown-body:after,
+.markdown-body:before {
+  display: table;
+  content: "";
+}
+
+.markdown-body:after {
+  clear: both;
+}
+
+.markdown-body>:first-child {
+  margin-top: 0!important;
+}
+
+.markdown-body>:last-child {
+  margin-bottom: 0!important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body blockquote,
+.markdown-body details,
+.markdown-body dl,
+.markdown-body ol,
+.markdown-body p,
+.markdown-body pre,
+.markdown-body table,
+.markdown-body ul {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.markdown-body hr {
+  height: .25em;
+  padding: 0;
+  margin: 24px 0;
+  background-color: #e1e4e8;
+  border: 0;
+}
+
+.markdown-body blockquote {
+  padding: 0 1em;
+  color: #6a737d;
+  border-left: .25em solid #dfe2e5;
+}
+
+.markdown-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.markdown-body h1 {
+  font-size: 2em;
+}
+
+.markdown-body h1,
+.markdown-body h2 {
+  padding-bottom: .3em;
+  border-bottom: 1px solid #eaecef;
+}
+
+.markdown-body h2 {
+  font-size: 1.5em;
+}
+
+.markdown-body h3 {
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  font-size: .85em;
+  color: #6a737d;
+}
+
+.markdown-body ol,
+.markdown-body ul {
+  padding-left: 2em;
+}
+
+.markdown-body ol ol,
+.markdown-body ol ul,
+.markdown-body ul ol,
+.markdown-body ul ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li {
+  word-wrap: break-all;
+}
+
+.markdown-body li>p {
+  margin-top: 16px;
+}
+
+.markdown-body li+li {
+  margin-top: .25em;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.markdown-body dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.markdown-body table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+}
+
+.markdown-body table th {
+  font-weight: 600;
+}
+
+.markdown-body table td,
+.markdown-body table th {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+.markdown-body table tr {
+  background-color: #fff;
+  border-top: 1px solid #c6cbd1;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+.markdown-body img {
+  max-width: 100%;
+  box-sizing: initial;
+  background-color: #fff;
+}
+
+.markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.markdown-body code {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(27,31,35,.05);
+  border-radius: 3px;
+}
+
+.markdown-body pre {
+  word-wrap: normal;
+}
+
+.markdown-body pre>code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: 16px;
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f6f8fa;
+  border-radius: 3px;
+}
+
+.markdown-body pre code {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: initial;
+  border: 0;
+}
+
+.markdown-body .commit-tease-sha {
+  display: inline-block;
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  font-size: 90%;
+  color: #444d56;
+}
+
+.markdown-body .full-commit .btn-outline:not(:disabled):hover {
+  color: #005cc5;
+  border-color: #005cc5;
+}
+
+.markdown-body .blob-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.markdown-body .blob-wrapper-embedded {
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.markdown-body .blob-num {
+  width: 1%;
+  min-width: 50px;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  font-size: 12px;
+  line-height: 20px;
+  color: rgba(27,31,35,.3);
+  text-align: right;
+  white-space: nowrap;
+  vertical-align: top;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.markdown-body .blob-num:hover {
+  color: rgba(27,31,35,.6);
+}
+
+.markdown-body .blob-num:before {
+  content: attr(data-line-number);
+}
+
+.markdown-body .blob-code {
+  position: relative;
+  padding-right: 10px;
+  padding-left: 10px;
+  line-height: 20px;
+  vertical-align: top;
+}
+
+.markdown-body .blob-code-inner {
+  overflow: visible;
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  font-size: 12px;
+  color: #24292e;
+  word-wrap: normal;
+  white-space: pre;
+}
+
+.markdown-body .pl-token.active,
+.markdown-body .pl-token:hover {
+  cursor: pointer;
+  background: #ffea7f;
+}
+
+.markdown-body .tab-size[data-tab-size="1"] {
+  -moz-tab-size: 1;
+  -o-tab-size: 1;
+     tab-size: 1;
+}
+
+.markdown-body .tab-size[data-tab-size="2"] {
+  -moz-tab-size: 2;
+  -o-tab-size: 2;
+     tab-size: 2;
+}
+
+.markdown-body .tab-size[data-tab-size="3"] {
+  -moz-tab-size: 3;
+  -o-tab-size: 3;
+     tab-size: 3;
+}
+
+.markdown-body .tab-size[data-tab-size="4"] {
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+     tab-size: 4;
+}
+
+.markdown-body .tab-size[data-tab-size="5"] {
+  -moz-tab-size: 5;
+  -o-tab-size: 5;
+     tab-size: 5;
+}
+
+.markdown-body .tab-size[data-tab-size="6"] {
+  -moz-tab-size: 6;
+  -o-tab-size: 6;
+     tab-size: 6;
+}
+
+.markdown-body .tab-size[data-tab-size="7"] {
+  -moz-tab-size: 7;
+  -o-tab-size: 7;
+     tab-size: 7;
+}
+
+.markdown-body .tab-size[data-tab-size="8"] {
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+     tab-size: 8;
+}
+
+.markdown-body .tab-size[data-tab-size="9"] {
+  -moz-tab-size: 9;
+  -o-tab-size: 9;
+     tab-size: 9;
+}
+
+.markdown-body .tab-size[data-tab-size="10"] {
+  -moz-tab-size: 10;
+  -o-tab-size: 10;
+     tab-size: 10;
+}
+
+.markdown-body .tab-size[data-tab-size="11"] {
+  -moz-tab-size: 11;
+  -o-tab-size: 11;
+     tab-size: 11;
+}
+
+.markdown-body .tab-size[data-tab-size="12"] {
+  -moz-tab-size: 12;
+  -o-tab-size: 12;
+     tab-size: 12;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item+.task-list-item {
+  margin-top: 3px;
+}
+
+.markdown-body .task-list-item input {
+  margin: 0 .2em .25em -1.6em;
+  vertical-align: middle;
+}
+</style><style data-vue-ssr-id="64cc030e:0">.ellipsis[data-v-7ba5bd90] {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.app[data-v-7ba5bd90] {
+  min-width: 1024px;
+}
+.app .container-wrapper[data-v-7ba5bd90] {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+.app .container-wrapper .container[data-v-7ba5bd90] {
+  width: 1024px;
+}
+@media (max-width: 500px) {
+.app[data-v-7ba5bd90] {
+    min-width: unset;
+}
+.app .container-wrapper .container[data-v-7ba5bd90] {
+    width: 100%;
+}
+.app .back-top[data-v-7ba5bd90] {
+    display: none;
+}
+}
+</style><style data-vue-ssr-id="376aac50:0">.ellipsis[data-v-d2cca71c] {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.nav-wrapper[data-v-d2cca71c] {
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+.nav-wrapper .nav[data-v-d2cca71c] {
+  width: 1024px;
+  height: 56px;
+}
+.nav-wrapper .nav .nav-actions[data-v-d2cca71c] {
+  display: flex;
+  height: 100%;
+}
+.nav-wrapper .nav .nav-actions .nav-action-link[data-v-d2cca71c] {
+  margin-left: 20px;
+  height: 100%;
+}
+.nav-wrapper .nav .nav-actions .nav-action-link[data-v-d2cca71c]:first-child {
+  margin-left: 0;
+}
+.nav-wrapper .nav .nav-actions .nav-action-wrapper[data-v-d2cca71c] {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: calc(100% - 3px);
+  font-size: 14px;
+  transition: color 0.3s;
+}
+.nav-wrapper .nav .nav-actions .nav-action-wrapper[data-v-d2cca71c]:hover {
+  color: #ef4b50;
+}
+.nav-wrapper .nav .nav-actions .nav-action-wrapper .menu-icon[data-v-d2cca71c] {
+  margin-right: 5px;
+}
+.nav-wrapper .nav .nav-actions .nav-action-wrapper_selected[data-v-d2cca71c] {
+  position: relative;
+  color: #ef4b50;
+  border-bottom: 3px solid #ef4b50;
+}
+</style><style data-vue-ssr-id="86fe8408:0">.ellipsis[data-v-d95f0bf6] {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.article-wrapper[data-v-d95f0bf6] {
+  display: flex;
+}
+.article-wrapper .article[data-v-d95f0bf6] {
+  overflow-x: hidden;
+}
+.article-wrapper .article .banner .banner-image[data-v-d95f0bf6] {
+  width: 100%;
+}
+.article-wrapper .article .title[data-v-d95f0bf6] {
+  margin-bottom: 0;
+  margin-top: 20px;
+  font-size: 30px;
+  line-height: 35px;
+}
+.article-wrapper .article .info[data-v-d95f0bf6] {
+  margin-top: 40px;
+}
+.article-wrapper .article .info[data-v-d95f0bf6] .info-block {
+  font-size: 14px;
+}
+.article-wrapper .article .content[data-v-d95f0bf6] {
+  margin-top: 40px;
+}
+.article-wrapper .article .recommend[data-v-d95f0bf6] {
+  display: flex;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-size: 14px;
+}
+.article-wrapper .article .recommend .recommend-block-text[data-v-d95f0bf6] {
+  margin-right: 5px;
+}
+.article-wrapper .article .recommend .recommend-block[data-v-d95f0bf6] {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+@media (max-width: 500px) {
+.article-wrapper .article .recommend .recommend-last[data-v-d95f0bf6] {
+    display: none;
+}
+}
+.article-wrapper .article .recommend .recommend-next[data-v-d95f0bf6] {
+  display: flex;
+  justify-content: flex-end;
+}
+.article-wrapper .article .footer[data-v-d95f0bf6] {
+  margin-bottom: 40px;
+  text-align: center;
+}
+.article-wrapper .article .footer .footer-button[data-v-d95f0bf6] {
+  margin-left: 10px;
+}
+.article-wrapper .article .footer .footer-button[data-v-d95f0bf6]:first-child {
+  margin-left: 0;
+}
+@media (max-width: 500px) {
+.catalogue-wrapper[data-v-d95f0bf6] {
+    display: none;
+}
+}
+.catalogue-wrapper_toggle[data-v-d95f0bf6] {
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+.catalogue-wrapper_toggle .catalogue[data-v-d95f0bf6] {
+  position: sticky;
+  top: 0;
+}
+.catalogue-wrapper_untoggle[data-v-d95f0bf6] {
+  position: fixed;
+  bottom: 130px;
+  right: 60px;
+}
+</style><style data-vue-ssr-id="e6ede62e:0">.ellipsis[data-v-54a33415] {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.card[data-v-54a33415] {
+  padding: 24px;
+  border-radius: 2px;
+  box-shadow: 0px 0px 1px rgba(41, 45, 51, 0.1), 0px 1px 2px rgba(41, 45, 51, 0.1);
+  box-sizing: border-box;
+  background-color: #fff;
+}
+</style><style data-vue-ssr-id="4c88cc77:0">.ellipsis[data-v-01771278] {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.info[data-v-01771278] {
+  font-size: 12px;
+  line-height: 18px;
+  color: #666;
+}
+.info .info-block[data-v-01771278]::before {
+  content: '|';
+  margin-left: 10px;
+  margin-right: 10px;
+  font-weight: 600;
+}
+.info .info-block[data-v-01771278]:first-child::before {
+  content: '';
+  margin-left: 0;
+  margin-right: 0;
+}
+</style><style data-vue-ssr-id="fec05da4:0">.ellipsis[data-v-c80b520e] {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.line[data-v-c80b520e] {
+  margin: 60px 8% 60px 8%;
+  height: 1px;
+  background-color: #d1d1d1;
+}
+</style><style data-vue-ssr-id="6bf8c9bc:0">.ellipsis[data-v-ce68c092] {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.catalogue-card_toggle[data-v-ce68c092] {
+  width: 240px;
+  max-height: 100vh;
+  font-size: 14px;
+  line-height: 20px;
+  overflow-y: auto;
+}
+.catalogue-card_toggle:hover .title .title-footer[data-v-ce68c092] {
+  visibility: visible;
+}
+.catalogue-card_toggle .title[data-v-ce68c092] {
+  position: relative;
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.catalogue-card_toggle .title .title-footer[data-v-ce68c092] {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-weight: 400;
+  color: #ef4b50;
+  visibility: hidden;
+  cursor: pointer;
+}
+.catalogue-card_untoggle-wrapper .catalogue-card_untoggle[data-v-ce68c092] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  border-radius: 100%;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+.catalogue-card_untoggle-wrapper .catalogue-card_untoggle[data-v-ce68c092]:hover {
+  color: #ef4b50;
+}
+</style><style data-vue-ssr-id="2a259861:0">.ellipsis[data-v-292518fe] {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.icon[data-v-292518fe] {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+</style><style data-vue-ssr-id="9fa28770:0">.ellipsis[data-v-fdb56dc8] {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.footer[data-v-fdb56dc8] {
+  margin-top: 80px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 20px;
+}
+@media (max-width: 500px) {
+.footer[data-v-fdb56dc8] {
+    margin-top: 0;
+}
+}
+</style><style data-vue-ssr-id="0dde9044:0">.ellipsis[data-v-876fde0e] {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.back-top[data-v-876fde0e] {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  border-radius: 100%;
+  box-shadow: 0px 0px 1px rgba(41, 45, 51, 0.1), 0px 1px 2px rgba(41, 45, 51, 0.1);
+  background-color: #fff;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+.back-top[data-v-876fde0e]:hover {
+  color: #ef4b50;
+}
+</style></head>
+  <body>
+    <div id="app" data-server-rendered="true" class="app" data-v-7ba5bd90><header class="nav-wrapper" data-v-d2cca71c data-v-7ba5bd90><div class="nav" data-v-d2cca71c><div class="nav-actions" data-v-d2cca71c><a href="/blog/" class="nav-action-link router-link-active" data-v-d2cca71c><div class="nav-action-wrapper" data-v-d2cca71c><span data-v-d2cca71c>首页</span></div></a><a href="/blog/columns" class="nav-action-link" data-v-d2cca71c><div class="nav-action-wrapper" data-v-d2cca71c><span data-v-d2cca71c>专栏</span></div></a></div></div></header><div class="container-wrapper" data-v-7ba5bd90><div class="container" data-v-7ba5bd90><div class="article-wrapper" data-v-d95f0bf6 data-v-7ba5bd90><div class="card article" data-v-54a33415 data-v-d95f0bf6><!----><h1 class="title" data-v-54a33415 data-v-d95f0bf6>protobuf</h1><div class="markdown-body content" data-v-d95f0bf6><p>Protocol Buffer (简称Protobuf) 是Google出品的性能优异、跨语言、跨平台的序列化库。</p> <blockquote><p>序列化(serialization、marshalling)的过程是指将数据结构或者对象的状态转换成可以存储(比如文件、内存)或者传输的格式(比如网络)。反向操作就是反序列化(deserialization、unmarshalling)的过程。</p></blockquote> <p>Protobuf支持很多语言，比如C++、C#、Dart、Go、Java、Python、Rust等，同时也是跨平台的，所以得到了广泛的应用。</p> <p>Protobuf包含序列化格式的定义、各种语言的库以及一个IDL编译器。正常情况下你需要定义proto文件，然后使用IDL编译器编译成你需要的语言。</p> <h3 id="heading-0">1. 历史</h3><p>2001年初，Protobuf首先在Google内部创建， 我们把它称之为 <code>proto1</code></p> <p>2008年7月7日，Protobuf开始公布出来，称为 <code>proto2</code></p> <blockquote><p>Protobuf公布出来也得到了大家的广泛的关注， 逐步地也得到了大家的认可，很多项目也采用Protobuf进行消息的通讯，还有基于Protobuf的微服务框架GRPC。在使用的过程中，大家也提出了很多的意见和建议，Protobuf也在演化</p></blockquote> <p>2016年推出了Proto3，Proto3简化了proto2的开发，提高了开发的效能，但是也带来了版本不兼容的问题。</p> <p>官方建议新项目采用proto3，老项目因为兼容性的问题继续使用proto2,并且会长时间的支持proto2。</p> <h3 id="heading-1">2. Proto3的改变</h3><ul><li>移除了原始值字段的出现逻辑。</li> <li>移除了<code>required</code>字段</li> <li>移除了缺省值</li> <li>移除了<code>unknown</code>字段 （3.5中又加上了）</li> <li>移除了扩展，使用<code>Any</code>代替</li> <li>修复了未知的枚举值的语义</li> <li>添加了map类型</li> <li>添加了一些标准类似，比如time、动态数据的呈现</li> <li>可以使用JSON编码代替二进制proto编码</li></ul> <h3 id="heading-2">3. 一个简单的例子</h3><pre class="language-text"><code tabindex="0" class="language-text">syntax = "proto3";
+
+message ListArticlesRequest {
+    int64 page = 1;            // 页码
+    int64 page_size = 2;    // 分页大小
+}
+
+message ListArticlesResponse {
+    repeated Article articles = 1;    // 文章列表
+    int64 total_size = 2;    // 所有文章总数
+}
+
+message Article {
+    int64 id = 1;
+    string title = 2;
+    string content = 3;
+}</code></pre><ul><li>第一行指定protobuf的版本，这里是以<code>proto3</code>格式定义</li> <li>message类型会被protoc编译成不同的编程语言的相应对象，比如Java中的class、Go中的struct等</li> <li>字段格式：<code>[repeated] type fieldName = fieldNumber [[ fieldOptions ]];</code></li> <li>编译生成代码：在当前的目录下执行<code>protoc -I=. -I /usr/local/include -I=$(GOPATH)/src --go_out=. simple.proto</code>, 可以将这个proto编译成Go的代码，因为这里我们使用了<code>go_out</code>输出格式<ul><li><code>-I</code> 指定protoc的搜索import的proto的文件夹。在<code>MacOS</code>操作系统中protobuf把一些扩展的proto放在了<code>/usr/local/include</code>对应的文件夹中，一些第三方的Go库放在了gopath对应的包下，所以这里都把它们加上了。对于这个简单的例子，实际是不需要的。</li> <li><code>go_out</code>用来生成Go代码，<code>cpp_out</code>用来生成C++代码，<code>java_out</code>产生Java代码，<code>python_out</code>产生python代码，类似地还有<code>csharp_out</code>、<code>objc_out</code>、<code>ruby_out</code>、<code>php_out</code>等参数</li> <li><code>--go_out=.</code> 指定代码生成后存放的路径</li></ul></li></ul> <h3 id="heading-3">4. 引入其他proto文件</h3><pre class="language-text"><code tabindex="0" class="language-text">import "other.proto";
+import public "other2.proto";
+import weak "other.proto";</code></pre><p>比较少使用的是<code>public</code>和<code>weak</code>关键字。默认情况下<code>weak</code>引入的文件允许不存在(missing)，只为了google内部使用。<code>public</code>具有传递性，如果你在文件中通过<code>public</code>引入第三方的proto文件，那么引入你这个文件同时也会引入第三方的proto。</p> <p>我们一般忽略<code>public</code>和<code>weak</code>关键字，这两个关键字也没有在规范中详细进行介绍。</p> <h3 id="heading-4">5. package</h3><p>定义proto的包名，包名可以避免对message 类型之间的名字冲突，同名的Message可以通过package进行区分。</p> <p>在没有为特定语言定义 <code>option xxx_package</code> 的时候，它还可以用来生成特定语言的包名，比如Java package, go package。</p> <pre class="language-text"><code tabindex="0" class="language-text">package foo.bar;</code></pre><h3 id="heading-5">6. option</h3><p>option可以用在proto的scope中，或者message、enum、service的定义中。
+可以是Protobuf定义的option，或者自定义的option。</p> <p>option的定义格式是<code>&quot;option&quot; optionName &quot;=&quot; constant &quot;;&quot;</code></p> <p>比如设置各种语言的包名：</p> <pre class="language-text"><code tabindex="0" class="language-text">option go_package = "learnkratos/api/helloworld/v1;v1";
+option java_multiple_files = true;
+option java_package = "helloworld.v1.errors";
+option objc_class_prefix = "APIHelloworldErrors";</code></pre><p>一些Protobuf定义的option:</p> <ul><li>java_package</li> <li>java_multiple_files</li> <li>java_outer_classname</li> <li>optimize_for</li> <li>cc_enable_arenas</li> <li>objc_class_prefix</li> <li>deprecated</li></ul> <h3 id="heading-6">7. 字段</h3><p>前面讲过，字段格式：<code>[repeated] type fieldName = fieldNumber [[ fieldOptions ]];</code></p> <p><code>repeated</code>允许字段重复，对于Go语言来说，它会编译成数组类型</p> <p>其中类型可以是以下几种类型：</p> <ul><li>数字类型： double、float、int32、int64、uint32、uint64、sint32、sint64: 存储长度可变的浮点数、整数、无符号整数和有符号整数</li> <li>存储固定大小的数字类型：fixed32、fixed64、sfixed32、sfixed64: 存储空间固定</li> <li>布尔类型: bool</li> <li>字符串: string</li> <li>bytes: 字节数组</li> <li>messageType: 消息类型</li> <li>enumType:枚举类型</li></ul> <p>字段名、消息名、枚举类型名、map名、服务名等名称首字母必须是字母类型，然后可以是字母、数字或者下划线_</p> <p>proto类型和各语言的对应关系可以参考文档：<a href="https://developers.google.com/protocol-buffers/docs/proto3#scalar">Scalar Value Types</a></p> <p>同一个message的每个字段都有唯一一个编号，并且建议终生这个编号都不要改变。</p> <h4 id="heading-7">7.1 oneof</h4><p>如果你有一组字段，同时最多允许这一组中的一个字段出现，就可以使用<code>Oneof</code>定义这一组字段</p> <p>比如请求用户队列，有个判断用户身份类型的字段，只能选择特定值中的一个</p> <pre class="language-text"><code tabindex="0" class="language-text">syntax = "proto3";
+package abc;
+message ListArticlesRequest {
+    oneof user_status {
+      int64 normal = 1;
+      int64 admin = 2;
+    }
+}</code></pre><h4 id="heading-8">7.2 map</h4><p>map类型需要设置键和值的类型，格式是 <code>map&lt;keyType,valueType&gt; mapName = fieldNumber [filedOptions]</code></p> <p>比如：<code>map&lt;int64,string&gt; values = 1;</code></p> <p><strong>map<code>字段不能同时使用</code>repeated</strong></p> <h4 id="heading-9">7.3 Reserved</h4><p>Reserved可以用来指明此message占位但不使用某些字段，也就是忽略这些字段，可以通过字段编号范围或者字段名称指定保留的字段</p> <pre class="language-text"><code tabindex="0" class="language-text">syntax = "proto3";
+package abc;
+message AllNormalypes {
+  reserved 2, 4 to 6;
+  reserved "field14", "field11";
+  double field1 = 1;
+  // float field2 = 2;
+  int32 field3 = 3;
+  // int64 field4 = 4;
+  // uint32 field5 = 5;
+  // uint64 field6 = 6;
+  sint32 field7 = 7;
+  sint64 field8 = 8;
+  fixed32 field9 = 9;
+  fixed64 field10 = 10;
+  // sfixed32 field11 = 11;
+  sfixed64 field12 = 12;
+  bool field13 = 13;
+  // string field14 = 14;
+  bytes field15 = 15;
+}</code></pre><h4 id="heading-10">7.4 枚举类型</h4><p>限定字段的值只能取某个特定的值，比如星期类型只能取周一到周日七个值</p> <p>注意枚举类型的定义采用C++ scoping规则，也就是枚举值是枚举类型的兄弟类型，而不是子类型，所以避免在同一个package定义重名的枚举字段。</p> <pre class="language-text"><code tabindex="0" class="language-text">enum EnumAllowingAlias {
+  option allow_alias = true;
+  UNKNOWN = 0;
+  STARTED = 1;
+  RUNNING = 1;
+}
+enum EnumNotAllowingAlias {
+  UNKNOWN2 = 0;
+  STARTED2 = 1;
+  // RUNNING = 1; 
+}</code></pre><p><strong>虽然产生的Go代码会给产生的类型加上前缀，但是proto的定义还是需要避免重名(把上面的STARTED2改成STARTED试试)。</strong></p> <p>如果设置<code>allow_alias</code>，允许字段编号重复，<code>RUNNING</code>是<code>STARTED</code>的别名。</p> <h4 id="heading-11">7.5 其他类型</h4><p>可以使用其它message类型作为字段的类型值。因为前面在介绍字段的类型的时候说了，类型可以是消息类型和枚举类型，枚举类型如上所示，而消息类型如下所示：</p> <pre class="language-text"><code tabindex="0" class="language-text">message SearchResponse {
+  repeated Result results = 1;
+}
+
+message Result {
+  string url = 1;
+  string title = 2;
+  repeated string snippets = 3;
+}</code></pre><p>如果要使用的类型在其它proto文件中定义，你需要使用<code>import</code>把对应的文件引入进来。</p> <h4 id="heading-12">7.6 嵌套类型</h4><p>嵌套类型就是消息类型里面定义了消息类型:</p> <pre class="language-text"><code tabindex="0" class="language-text">message SearchResponse {
+  message Result {
+    string url = 1;
+    string title = 2;
+    repeated string snippets = 3;
+  }
+  repeated Result results = 1;
+}</code></pre><h4 id="heading-13">7.7 Any</h4><p><code>Any</code>字段允许你处理嵌套数据，并不需要它的proto定义。一个<code>Any</code>以bytes呈现序列化的消息，并且包含一个URL作为这个类型的唯一标识和元数据。</p> <p>为了使用<code>Any</code>类型，需要引入<code>google/protobuf/any.proto</code></p> <pre class="language-text"><code tabindex="0" class="language-text">import "google/protobuf/any.proto";
+message ErrorStatus {
+  string message = 1;
+  repeated google.protobuf.Any details = 2;
+}</code></pre><h3 id="heading-14">8. 更新消息类型</h3><p>有时候不得不修改正在使用的proto文件，比如为类型增加一个字段，protobuf支持这种修改而不影响已有的服务，不过你需要遵循一定的规则：</p> <ul><li>不要改变已有字段的字段编号</li> <li>当你增加一个新的字段的时候，老系统序列化后的数据依然可以被你的新的格式所解析，只不过你需要处理新加字段的缺省值。 老系统也能解析你信息的值，新加字段只不过被丢弃了</li> <li>字段也可以被移除，但是建议你Reserved这个字段，避免将来会使用这个字段</li> <li>int32, uint32, int64, uint64 和 bool类型都是兼容的</li> <li>sint32 和 sint64兼容，但是不和其它整数类型兼容</li> <li>string 和 bytes兼容，如果 bytes 是合法的UTF-8 bytes的话</li> <li>嵌入类型和bytes兼容，如果bytes包含一个消息的编码版本的话</li> <li>fixed32和sfixed32, fixed64和sfixed64</li> <li>enum和int32, uint32, int64, uint64格式兼容</li> <li>把单一一个值改变成一个新的oneof类型的一个成员是安全和二进制兼容的。把一组字段变成一个新的oneof字段也是安全的，如果你确保这一组字段最多只会设置一个。把一个字段移动到一个已存在的oneof字段是不安全的</li></ul></div><div class="info info" data-v-01771278 data-v-d95f0bf6><span class="info-block" data-v-01771278>发布于: 2021/10/11</span><span class="info-block" data-v-01771278>类别: <a href="/blog/?category=Web%E5%BC%80%E5%8F%91" data-v-01771278>Web开发</a></span></div><div class="recommend" data-v-54a33415 data-v-d95f0bf6><!----><div class="recommend-block recommend-next" data-v-54a33415 data-v-d95f0bf6><a href="/blog/article/1632138738854" data-v-d95f0bf6><span class="recommend-block-text" data-v-d95f0bf6>下一篇: </span><span data-v-d95f0bf6>Linux常用命令对应全称</span></a></div></div><div class="line" data-v-c80b520e data-v-d95f0bf6></div></div><div class="catalogue-wrapper catalogue-wrapper_untoggle" data-v-d95f0bf6><div class="catalogue-card_untoggle-wrapper catalogue" data-v-ce68c092 data-v-d95f0bf6><div class="card catalogue-card_untoggle" data-v-54a33415 data-v-ce68c092><svg aria-hidden="true" class="icon" data-v-292518fe data-v-ce68c092><use xlink:href="#icon-catalogue" data-v-292518fe></use></svg></div></div></div></div></div></div><div class="footer" data-v-fdb56dc8 data-v-7ba5bd90><section class="footer-section" data-v-fdb56dc8>©2022 Mittacy's Blog. All rights reserved</section><section class="footer-section" data-v-fdb56dc8><a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer" data-v-fdb56dc8>备案号: 粤ICP备2021130319号-1</a></section></div><div class="back-top back-top" style="bottom:60px;right:60px;" data-v-876fde0e data-v-7ba5bd90><svg aria-hidden="true" class="icon" data-v-292518fe data-v-876fde0e><use xlink:href="#icon-rocket" data-v-292518fe></use></svg></div></div><script src="/blog/static/js/chunk-vendors.98aa2d5e.js" defer></script><script src="/blog/static/js/chunk-4b00a56a.f60616c1.js" defer></script><script src="/blog/static/js/chunk-d54686c8.5143f685.js" defer></script><script src="/blog/static/js/app.0d2651de.js" defer></script>
+    <script src="//at.alicdn.com/t/font_2712780_iw7teim8vh.js"></script>
+    
+  </body>
+</html>
