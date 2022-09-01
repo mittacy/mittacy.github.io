@@ -13,8 +13,8 @@
     "static/css/chunk-d54686c8.30e0cc7d.css",
     "static/img/error.35052b0a.png",
     "static/img/not-found.4ea4c8b6.png",
-    "static/js/app.0d2651de.js",
-    "static/js/app.0d2651de.js.map",
+    "static/js/app.41aa715e.js",
+    "static/js/app.41aa715e.js.map",
     "static/js/chunk-2e3fbe22.ff12df6f.js",
     "static/js/chunk-2e3fbe22.ff12df6f.js.map",
     "static/js/chunk-3a5a13a3.0cebf565.js",
@@ -33,7 +33,7 @@
   "initial": [
     "static/js/chunk-vendors.98aa2d5e.js",
     "static/css/app.2a02c875.css",
-    "static/js/app.0d2651de.js"
+    "static/js/app.41aa715e.js"
   ],
   "async": [
     "static/css/chunk-2e3fbe22.a53d4fc3.css",
